@@ -7,10 +7,14 @@ services:
     restart: always
     volumes:
       - db:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=
     env_file:
       - db.env
+    secrets:
+      - db_root_password
+      - db_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=/run/secrets/db_root_password
+      - MYSQL_PASSWORD=/run/secrets/db_password
 
   redis:
     image: redis:alpine
@@ -21,6 +25,10 @@ services:
     restart: always
     volumes:
       - nextcloud:/var/www/html
+      - apps:/var/www/html/custom_apps
+      - config:/var/www/html/config
+      - data:/var/www/html/data
+      - theme:/var/www/html/themes/rengacloud
     environment:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
@@ -53,3 +61,13 @@ services:
 volumes:
   db:
   nextcloud:
+  apps:
+  config:
+  data:
+  theme:
+  
+secrets:
+  db_root_password:
+    external: true
+  db_password:
+    external: true
