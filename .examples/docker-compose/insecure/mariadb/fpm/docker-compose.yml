@@ -7,21 +7,23 @@ services:
     restart: always
     volumes:
       - db:/var/lib/mysql
-    env_file:
-      - db.env
     secrets:
       - db_root_password
+      - db_name
+      - db_user_name
       - db_password
     environment:
       - MYSQL_ROOT_PASSWORD=/run/secrets/db_root_password
       - MYSQL_PASSWORD=/run/secrets/db_password
+      - MYSQL_DATABASE=/run/secrets/db_name
+      - MYSQL_USER=/run/secrets/db_user_name
 
   redis:
     image: redis:alpine
     restart: always
 
   app:
-    image: nextcloud:fpm-alpine
+    build: ./rengacloud
     restart: always
     volumes:
       - nextcloud:/var/www/html
@@ -32,11 +34,18 @@ services:
     environment:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
-    env_file:
-      - db.env
+      - NEXTCLOUD_ADMIN_PASSWORD_FILE=/run/secrets/rengacloud_admin_password
+      - NEXTCLOUD_ADMIN_USER_FILE=/run/secrets/rengacloud_admin_user
+      - MYSQL_DATABASE=/run/secrets/db_name
+      - MYSQL_USER=/run/secrets/db_user_name
     depends_on:
       - db
       - redis
+    secrets:
+      - rengacloud_admin_password
+      - rengacloud_admin_user
+      - db_name
+      - db_user_name
 
   web:
     build: ./web
@@ -68,6 +77,14 @@ volumes:
   
 secrets:
   db_root_password:
-    external: true
+    file: ./db_root_password.txt
   db_password:
-    external: true
+    file: ./db_password.txt
+  rengacloud_admin_password:
+    file: ./rengacloud_admin_password.txt
+  rengacloud_admin_user:
+    file: ./rengacloud_admin_user.txt
+  db_name:
+    file: ./db_name.txt
+  db_user_name:
+    file: ./db_user_name.txt
