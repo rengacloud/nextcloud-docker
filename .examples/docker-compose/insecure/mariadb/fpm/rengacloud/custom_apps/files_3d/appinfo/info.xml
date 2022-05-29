@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>files_3d</id>
+    <name>Files 3d</name>
+    <summary>3D viewer for nextcloud</summary>
+    <description>Adds support for different 3D file formats (.dae, .fbx, .gltf, .obj) to Nextcloud. Based on three.js.</description>
+    <version>0.6.0</version>
+    <licence>agpl</licence>
+    <author mail="vinzenz.rosenkranz@posteo.de">Vinzenz Rosenkranz</author>
+    <namespace>Files3d</namespace>
+    <types>
+        <filesystem/>
+    </types>
+    <category>tools</category>
+    <documentation>
+	    <user>https://github.com/v1r0x/files_3d</user>
+	    <admin>https://github.com/v1r0x/files_3d</admin>
+	    <developer>https://github.com/v1r0x/files_3d</developer>
+    </documentation>
+    <website>https://github.com/v1r0x/files_3d</website>
+    <bugs>https://github.com/v1r0x/files_3d/issues</bugs>
+    <screenshot>https://raw.githubusercontent.com/v1r0x/files_3d/master/screenshots/screenshot1.png</screenshot>
+    <dependencies>
+        <nextcloud min-version="21" max-version="23"/>
+    </dependencies>
+    <repair-steps>
+        <post-migration>
+            <step>OCA\Files3d\Migration\AddMimetypeToFilecache</step>
+        </post-migration>
+    </repair-steps>
+</info>

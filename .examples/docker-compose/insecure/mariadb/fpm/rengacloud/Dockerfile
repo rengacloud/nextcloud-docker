@@ -46,6 +46,16 @@ RUN mkdir -p \
 
 COPY supervisord.conf /
 
+RUN rm -rf /var/www/html/core/skeleton
+COPY ./skeleton /var/www/html/core/skeleton
+RUN chown -R www-data:root /var/www/html/core/skeleton
+
+COPY ./themes/rengacloud /var/www/html/themes/rengacloud
+RUN chown -R www-data:root /var/www/html/themes
+
+#COPY ./files_3d /var/www/html/custom_apps/files_3d
+#RUN chown -R www-data:root /var/www/html/custom_apps
+
 ENV NEXTCLOUD_UPDATE=1
 
 CMD ["/usr/bin/supervisord", "-c", "/supervisord.conf"]
