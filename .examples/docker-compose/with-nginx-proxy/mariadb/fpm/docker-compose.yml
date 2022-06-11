@@ -8,7 +8,7 @@ services:
     volumes:
       - db:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ROOT_PASSWORD=password123456
     env_file:
       - db.env
 
@@ -17,15 +17,19 @@ services:
     restart: always
 
   app:
-    image: nextcloud:fpm-alpine
+    build: ./rengacloud
     restart: always
     volumes:
       - nextcloud:/var/www/html
+      - apps:/var/www/html/custom_apps
+      - config:/var/www/html/config
+      - data:/var/www/html/data
+      - theme:/var/www/html/themes/rengacloud
+    env_file:
+      - db.env
     environment:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
-    env_file:
-      - db.env
     depends_on:
       - db
       - redis
@@ -36,9 +40,9 @@ services:
     volumes:
       - nextcloud:/var/www/html:ro
     environment:
-      - VIRTUAL_HOST=
-      - LETSENCRYPT_HOST=
-      - LETSENCRYPT_EMAIL=
+      - VIRTUAL_HOST=storage.rengacloud.ru
+      - LETSENCRYPT_HOST=storage.rengacloud.ru
+      - LETSENCRYPT_EMAIL=support@rengacloud.ru
     depends_on:
       - app
     networks:
@@ -107,6 +111,10 @@ volumes:
   acme:
   vhost.d:
   html:
+  apps:
+  config:
+  data:
+  theme:
 
 networks:
   proxy-tier:
