@@ -52,8 +52,8 @@ input[type="submit"].primary:active,
 input[type="button"].primary:active,
 button.primary:active,
 .button.primary:active {
-	border-color: #0082C8;
-	background-color: #0056C6;
+	border-color: #494C51;
+	background-color: #32363C;
 }
 .primary:hover,
 input[type="submit"].primary:hover,
@@ -72,6 +72,34 @@ button.primary:focus,
 .primary:disabled:hover, input[type="submit"].primary:disabled:hover, input[type="button"].primary:disabled:hover, button.primary:disabled:hover, .button.primary:disabled:hover,
 .primary:disabled:focus, input[type="submit"].primary:disabled:focus, input[type="button"].primary:disabled:focus, button.primary:disabled:focus, .button.primary:disabled:focus {
 	background-color: #0082C8;
+}
+
+input.primary:not(:disabled):hover,
+input.primary:not(:disabled):focus,
+button.primary:not(:disabled):hover,
+button.primary:not(:disabled):focus,
+a.primary:not(:disabled):hover,
+a.primary:not(:disabled):focus {
+	color: rgba(255, 255, 255, 1);
+	background-image: linear-gradient(40deg, #0082c9 0%, #30b6ff 100%);
+	background-position: initial;
+	border-color: #bcc7ca;
+}
+
+input[type='text'],
+input[type='tel'],
+input[type='password'],
+input[type='email'] {
+	width: 360px;
+	background: #fff;
+	color: #555;
+	cursor: text;
+	font-family: inherit;
+	-webkit-appearance: textfield;
+	-moz-appearance: textfield;
+	box-sizing: content-box;
+	border: none;
+	font-weight: normal;
 }
 
 /* use logos from theme */
