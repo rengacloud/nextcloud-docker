@@ -7,3 +7,5 @@ docker-compose exec --user www-data app php occ config:system:set skeletondirect
 docker-compose exec --user www-data app php occ config:system:set knowledgebaseenabled --value="false" --type=boolean
 docker-compose exec --user www-data app php occ config:system:set default_language --value="ru"
 docker-compose exec --user www-data app php occ config:system:set default_locale --value="ru_RU"
+docker-compose exec --user www-data app php occ config:system:set trusted_domains 1 --value="storage.rengacloud.ru"
+
