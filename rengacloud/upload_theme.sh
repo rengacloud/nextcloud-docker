@@ -19,4 +19,6 @@ run_as() {
     fi
 }
 
-docker run --rm --volumes-from fpm_app_1 -v $(pwd)/tmp/config:/config ubuntu /bin/bash -c "cp -a /var/www/html/config/. /config/ && chown -R 1000 config"
+docker run --rm --volumes-from fpm_app_1 -v $(pwd)/rengacloud/themes/rengacloud:/theme alpine cp -a /theme/. /var/www/html/themes/rengacloud/
+docker exec fpm_app_1 chown -R www-data:root themes
+docker exec -it --user www-data fpm_app_1 php occ maintenance:theme:update

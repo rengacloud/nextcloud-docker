@@ -10,14 +10,14 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=password123456
     env_file:
-      - db.env
+      - ../../../../../rengacloud/db.env
 
   redis:
     image: redis:alpine
     restart: always
 
   app:
-    build: ./rengacloud
+    build: ../../../../../rengacloud
     restart: always
     volumes:
       - nextcloud:/var/www/html
@@ -26,7 +26,7 @@ services:
       - data:/var/www/html/data
       - theme:/var/www/html/themes/rengacloud
     env_file:
-      - db.env
+      - ../../../../../rengacloud/db.env
     environment:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
