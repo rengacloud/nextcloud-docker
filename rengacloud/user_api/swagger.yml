@@ -22,25 +22,7 @@ paths:
       responses:
         200:
           description: Successfully read group set operation
-          schema:
-            type: array
-            items:
-              properties:
-                name:
-                  type: string
-                  description: Name of the group
-                admin_name:
-                  type: string
-                  description: Group admin username
-                admin_email:
-                  type: string
-                  description: Group admin email
-                quote:
-                  type: string
-                  description: Group storage qouta
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the group
+          
 
     post:
       operationId: api.create_group

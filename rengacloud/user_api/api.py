@@ -2,72 +2,22 @@
 This is the people module and supports all the REST actions for the
 people data
 """
-import os
+import os, subprocess
+import json
 from pathlib import Path
 from flask import make_response, abort
 from config import db, multi_auth, basic_auth, token_auth, users, tokens, app
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask import jsonify
 
-@multi_auth.login_required
-def agent_list():
-    """
-    This function responds to a request for /api/agents
-    with the complete lists of agents
+def executeOccCommand(command):
+    cmd = 'docker exec -it --user www-data fpm_app_1 php occ {cmd}'.format(cmd=command).split()
+    process = subprocess.Popen(cmd,
+                     stdout=subprocess.PIPE, 
+                     stderr=subprocess.PIPE)
+    stdout, stderr = process.communicate()
+    return stdout.strip()
 
-    :return:        json string of list of agents
-    """
-    # Create the list of agents from our data
-    agents = Agent.query.all()
-
-    # Serialize the data for the response
-    agent_schema = AgentSchema(many=True)
-    data = agent_schema.dump(agents)
-    return data
-
-
-@multi_auth.login_required
-def read_one(agent_id):
-    """
-    This function responds to a request for /api/agents/{agent_id}
-    with one matching agent from agent list
-
-    :param person_id:   Id of agent to find
-    :return:            agent matching id
-    """
-    # Get the person requested
-    # agent = Agent.query.filter(Agent.agent_id == agent_id).one_or_none()
-
-    # # Did we find a person?
-    # if agent is not None:
-
-        # # Serialize the data for the response
-        # agent_schema = AgentSchema()
-        # data = agent_schema.dump(agent)
-        # return data
-
-    # # Otherwise, nope, didn't find that person
-    # else:
-        # abort(
-            # 404,
-            # "Agent not found for Id: {agent_id}".format(agent_id=agent_id),
-        # )
-    return ""    
-
-
-
-    
-
-@multi_auth.login_required
-def read_one(agent_id):
-    """
-    This function responds to a request for /api/agents/{agent_id}
-    with one matching agent from agent list
-
-    :param person_id:   Id of agent to find
-    :return:            agent matching id
-    """
-    return ""    	
-		
 @multi_auth.login_required
 def group_list():
     """
@@ -76,7 +26,11 @@ def group_list():
 
     :return:        json string of list of agents
     """
-    return ""
+    
+    out = executeOccCommand("group:list --output=json")
+    #out = "{admin:[admin]}"
+    return make_response(jsonify(out), 200)
+    #return out
 
 
 @multi_auth.login_required
@@ -88,7 +42,8 @@ def read_group(group_name):
     :param person_id:   Name of group to find
     :return:            group matching name
     """
-    return ""    
+    out = executeOccCommand("groupquota:get {name} --output='json_pretty'".format(name=group_name))    
+    return out 
 
 
 @multi_auth.login_required
