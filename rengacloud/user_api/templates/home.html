@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Application Home Page</title>
+</head>
+<body>
+    RengaCloud Storage API Server
+        <h1 class="banner">RengaCloud Application</h1>
+        <div class="section editor">
+            <label for="agent_id">Agent id
+                <input id="agent_id" type="text" />
+            </label>
+            <br />
+			<label for="server_version">Renga server version
+                <input id="server_version" type="text" />
+            </label>
+            <br />
+            <label for="address">Address
+                <input id="address" type="text" />
+            </label>
+			<br />
+			<label for="port">Port
+                <input id="port" type="text" />
+            </label>
+            <br />
+			<button id="create">Create</button>
+            <button id="update">Update</button>
+            <button id="delete">Delete</button>
+            <button id="reset">Reset</button>
+		</div>
+        <div class="agents">
+            <table>
+                <caption>Agents</caption>
+                <thead>
+                    <tr>
+                        <th>Agent id</th>
+						<th>Storage id</th>
+                        <th>Server version</th>
+						<th>Address</th>
+                        <th>Port</th>
+						<th>isActive</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="error">
+        </div>
+    </div>
+</body>
+
+</html>

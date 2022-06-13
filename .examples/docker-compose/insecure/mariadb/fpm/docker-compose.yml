@@ -53,6 +53,12 @@ services:
     depends_on:
       - db
       - redis
+  
+  user_api:
+    build: ../../../../../rengacloud/user_api
+    restart: always
+    ports:
+      - 5001:5001
 
 volumes:
   db:

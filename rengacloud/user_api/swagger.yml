@@ -1,0 +1,251 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: RengaCloud Storage User API
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /groups:
+    get:
+      operationId: api.group_list
+      tags:
+        - RengaCloud
+      summary: Read the entire set of groups
+      description: Read the entire set of groups
+      responses:
+        200:
+          description: Successfully read group set operation
+          schema:
+            type: array
+            items:
+              properties:
+                name:
+                  type: string
+                  description: Name of the group
+                admin_name:
+                  type: string
+                  description: Group admin username
+                admin_email:
+                  type: string
+                  description: Group admin email
+                quote:
+                  type: string
+                  description: Group storage qouta
+                timestamp:
+                  type: string
+                  description: Creation/Update timestamp of the group
+
+    post:
+      operationId: api.create_group
+      tags:
+        - RengaCloud
+      summary: Create an group
+      description: Create a new group
+      parameters:
+        - name: group
+          in: body
+          description: group to create
+          required: True
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Name of the group
+              admin_name:
+                type: string
+                description: Group admin username
+              admin_email:
+                type: string
+                description: Group admin email
+              quote:
+                type: string
+                description: Group storage qouta
+              admin_password:
+                type: string
+                description: Admin temporary password
+      responses:
+        201:
+          description: Successfully created group
+          schema:
+            properties:
+              group_name:
+                type: string
+                description: Name of the group
+              
+
+  /groups/{group_name}:
+    get:
+      operationId: api.read_group
+      tags:
+        - RengaCloud
+      summary: Read one group
+      description: Read one group
+      parameters:
+        - name: group_name
+          in: path
+          description: Name of the group to get
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read group from groups data operation
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Name of the group
+              admin_name:
+                type: string
+                description: Group admin username
+              admin_email:
+                type: string
+                description: Group admin email
+              quote:
+                type: string
+                description: Group storage qouta              
+
+    put:
+      operationId: api.update_group
+      tags:
+        - RengaCloud
+      summary: Update settings of the group
+      description: Update settings of the group
+      parameters:
+        - name: group_name
+          in: path
+          description: Name of the group to update
+          type: string
+          required: True
+        - name: group
+          in: body
+          description: group to update
+          required: True
+          schema:
+            type: object
+            properties:
+              qouta:
+                type: string
+                description: Group storage qouta
+      responses:
+        200:
+          description: Successfully updated group
+          schema:
+            properties:
+              group_name:
+                type: string
+                description: Name of the group in the database
+              qouta:
+                type: string
+                description: Group storage qouta
+              
+    delete:
+      operationId: api.delete_group
+      tags:
+        - RengaCloud
+      summary: Delete a group
+      description: Delete a group
+      parameters:
+        - name: group_name
+          in: path
+          type: string
+          description: Name of the group to delete
+          required: true
+      responses:
+        200:
+          description: Successfully deleted an group
+  
+  
+  /groups/enable/{group_name}:
+    put:
+      operationId: api.enable_group
+      tags:
+        - RengaCloud
+      summary: Enable an group
+      description: Enable an group
+      parameters:
+        - name: group_name
+          in: path
+          description: Name of the group to enable
+          type: string
+          required: True
+      responses:
+        200:
+          description: Group successfully enabled
+          schema:
+            properties:
+              group_name:
+                type: string
+                description: Name of the group
+                
+  /groups/disable/{group_name}:
+    put:
+      operationId: api.disable_group
+      tags:
+        - RengaCloud
+      summary: Disable an group
+      description: Disable an group
+      parameters:
+        - name: group_name
+          in: path
+          description: Name of the group to disable
+          type: string
+          required: True
+      responses:
+        200:
+          description: Group successfully disabled
+          schema:
+            properties:
+              group_name:
+                type: string
+                description: Name of the group
+  /users/enable/{user_name}:
+    put:
+      operationId: api.enable_user
+      tags:
+        - RengaCloud
+      summary: Enable an user
+      description: Enable an user
+      parameters:
+        - name: user_name
+          in: path
+          description: Name of the user to enable
+          type: string
+          required: True
+      responses:
+        200:
+          description: User successfully enabled
+          schema:
+            properties:
+              user_name:
+                type: string
+                description: Name of the user
+  /users/disable/{user_name}:
+    put:
+      operationId: api.disable_user
+      tags:
+        - RengaCloud
+      summary: Disable an user
+      description: Disable an user
+      parameters:
+        - name: user_name
+          in: path
+          description: Name of the user to disable
+          type: string
+          required: True
+      responses:
+        200:
+          description: User successfully disabled
+          schema:
+            properties:
+              user_name:
+                type: string
+                description: Name of the user
