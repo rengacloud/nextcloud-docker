@@ -26,23 +26,8 @@
 }
 
 body {
-	background-color: #ffffff;
-	font-weight: normal;
-	/* bring the default font size up to 14px */
-	font-size: .875em;
-	line-height: 1.6em;
 	font-family: -apple-system, BlinkMacSystemFont, 'Nunito', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-	color: #000;
-	text-align: center;
-	background-color: #0082c9;
-	background-image: url('../img/background.png?v=2');
-	background-image: url('../img/background.png?v=2'), linear-gradient(40deg, #0082c9 0%, rgba(28,175,255,1) 100%);
-	background-position: 50% 50%;
-	background-repeat: repeat;
-	background-size: 275px, contain;
-	background-attachment: fixed; /* fix background gradient */
-	min-height: 100%; /* fix sticky footer */
-	height: auto;
+
 }
 
 /* log in screen background color */

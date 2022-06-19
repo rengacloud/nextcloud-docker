@@ -19,6 +19,8 @@ run_as() {
     fi
 }
 
-docker run --rm --volumes-from fpm_app_1 -v $(pwd)/rengacloud/themes/rengacloud:/theme alpine cp -a /theme/. /var/www/html/themes/rengacloud/
-docker exec fpm_app_1 chown -R www-data:root themes
-docker exec -it --user www-data fpm_app_1 php occ maintenance:theme:update
+docker run --rm --volumes-from app -v $(pwd)/rengacloud/themes/rengacloud:/theme alpine cp -a /theme/. /var/www/html/themes/rengacloud/
+docker exec app chown -R www-data:root themes
+docker exec -it --user www-data app php occ maintenance:theme:update
+docker stop proxy
+docker start proxy
