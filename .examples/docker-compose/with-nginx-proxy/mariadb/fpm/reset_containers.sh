@@ -3,5 +3,5 @@ docker-compose rm -f
 docker volume rm $(docker volume ls -q)
 docker-compose build --pull
 docker-compose up -d
-sleep 25
+sleep 30
 /bin/bash ../../../../../rengacloud/initial_setup.sh

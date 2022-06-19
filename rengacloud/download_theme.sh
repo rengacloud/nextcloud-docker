@@ -19,4 +19,4 @@ run_as() {
     fi
 }
 
-docker run --rm --volumes-from fpm_app_1 -v $(pwd)/tmp/themes/rengacloud:/theme ubuntu /bin/bash -c "cp -a /var/www/html/themes/rengacloud/. /theme/ && chown -R 1000 theme"
+docker run --rm --volumes-from app -v $(pwd)/tmp/themes/rengacloud:/theme ubuntu /bin/bash -c "cp -a /var/www/html/themes/rengacloud/. /theme/ && chown -R 1000 theme"

@@ -19,4 +19,4 @@ run_as() {
     fi
 }
 
-docker run --rm --volumes-from fpm_app_1 -v $(pwd)/tmp/config:/config ubuntu /bin/bash -c "cp -a /var/www/html/config/. /config/ && chown -R 1000 config"
+docker run --rm --volumes-from app -v $(pwd)/tmp/config:/config ubuntu /bin/bash -c "cp -a /var/www/html/config/. /config/ && chown -R 1000 config"
